@@ -1,0 +1,64 @@
+//| mill-version: 1.0.4
+
+package build
+
+import scala.util.Try
+
+import mill.*
+import mill.javalib.TestModule.ScalaModuleBase
+import mill.javalib.publish.{Developer, License, PomSettings, VersionControl}
+import mill.scalajslib.*
+import mill.scalajslib.api.ModuleKind
+import mill.scalalib.*
+import mill.util.VcsVersion
+
+trait CommonModule extends ScalaModuleBase:
+  def scalacOptions = Seq(
+    "-encoding",
+    "utf8",
+    "-deprecation",
+    "-feature",
+    "-unchecked",
+    "-Xlint",
+    "-Xsource-features:case-apply-copy-access",
+    "-Xsource-features:infer-override ",
+    "-Xsource:3",
+    "-Ymacro-annotations"
+  )
+
+object `simple-form`   extends Cross[SimpleFormModule]("2.13.16", "3.3.6")
+trait SimpleFormModule extends Cross.Module[String]:
+  trait Shared extends CrossScalaModule, CrossValue, PlatformScalaModule, CommonModule, PublishModule:
+    override def pomSettings =
+      PomSettings(
+        description = "A simple library for mapping data types to html forms, with typeclass derivation",
+        organization = "io.github.nafg.simple-form",
+        url = "https://github.com/io-github-nafg/simple-form",
+        licenses = Seq(License.`Apache-2.0`),
+        versionControl = VersionControl.github(owner = "nafg", repo = "simple-form"),
+        developers = Seq(Developer("nafg", "Naftoli Gugenheim", "https://github.com/nafg"))
+      )
+
+    override def publishVersion =
+      VcsVersion
+        .vcsState()
+        .format(dirtyHashDigits = 0, untaggedSuffix = "-SNAPSHOT")
+
+    override def mvnDeps =
+      crossScalaVersion match
+        case s"3.$x"    => Seq(mvn"com.softwaremill.magnolia1_3::magnolia:1.3.18")
+        case s"2.13.$x" =>
+          Seq(mvn"com.softwaremill.magnolia1_2::magnolia::1.1.10", mvn"org.scala-lang:scala-reflect:2.13.$x")
+
+  trait SimpleFormTestModule extends TestModule, CommonModule:
+    override def testFramework = "zio.test.sbt.ZTestFramework"
+    override def mvnDeps       = Seq(mvn"dev.zio::zio-test-sbt::2.1.20")
+
+  trait SharedJS extends Shared, ScalaJSModule:
+    override def scalaJSVersion = "1.19.0"
+
+  object jvm extends Shared:
+    object test extends ScalaTests, SimpleFormTestModule
+
+  object js extends SharedJS:
+    object test extends ScalaJSTests, SimpleFormTestModule
