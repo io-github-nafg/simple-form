@@ -25,7 +25,7 @@ jobs:
       - name: Get test targets
         id: get-targets
         run: |
-          TARGETS=$(./mill resolve __.test --no-server | grep -v "^===" | jq -R -s -c 'split("\n")[:-1]')
+          TARGETS=$(./mill --no-daemon --ticker false resolve __.test 2>/dev/null | jq -R -s -c 'split("\n")[:-1]')
           echo "targets=$TARGETS" >> $GITHUB_OUTPUT
 
   test:
