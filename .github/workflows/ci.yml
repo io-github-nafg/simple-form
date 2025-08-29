@@ -21,7 +21,7 @@ jobs:
       - uses: coursier/setup-action@v1
         with:
           jvm: temurin:11
-      
+
       - name: Get test targets
         id: get-targets
         run: |
@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         target: ${{ fromJson(needs.discover.outputs.test-targets) }}
-    
+
     steps:
       - uses: actions/checkout@v4
       - uses: coursier/cache-action@v6
@@ -43,7 +43,7 @@ jobs:
           jvm: temurin:11
 
       - name: Test ${{ matrix.target }}
-        run: ./mill --no-server ${{ matrix.target }}
+        run: ./mill --no-server --debug ${{ matrix.target }}
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v5
