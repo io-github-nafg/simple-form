@@ -43,7 +43,7 @@ jobs:
           jvm: temurin:11
 
       - name: Test ${{ matrix.target }}
-        run: ./mill --no-server --debug --jobs 1 ${{ matrix.target }}
+        run: ./mill --debug --jobs 1 ${{ matrix.target }}
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v5
