@@ -23,7 +23,7 @@ jobs:
 
       - name: Test
         run: |
-          ./mill --no-server --jobs 0 _.test
+          ./mill --no-server --jobs 0 __.test
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v5
