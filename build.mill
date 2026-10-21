@@ -35,7 +35,7 @@ trait SimpleFormModule extends Cross.Module[String]:
         organization = "io.github.nafg.simple-form",
         url = "https://github.com/io-github-nafg/simple-form",
         licenses = Seq(License.`Apache-2.0`),
-        versionControl = VersionControl.github(owner = "nafg", repo = "simple-form"),
+        versionControl = VersionControl.github(owner = "io-github-nafg", repo = "simple-form"),
         developers = Seq(Developer("nafg", "Naftoli Gugenheim", "https://github.com/nafg"))
       )
 
