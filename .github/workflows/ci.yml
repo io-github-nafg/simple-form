@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: coursier/cache-action@v6
-      - uses: coursier/setup-action@v1
+      - uses: coursier/setup-action@v3
         with:
           jvm: temurin:11
 
@@ -38,7 +38,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: coursier/cache-action@v6
-      - uses: coursier/setup-action@v1
+      - uses: coursier/setup-action@v3
         with:
           jvm: temurin:11
 
@@ -61,7 +61,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: coursier/cache-action@v6
-      - uses: coursier/setup-action@v1
+      - uses: coursier/setup-action@v3
         with:
           jvm: temurin:11
 
