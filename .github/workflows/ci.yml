@@ -16,7 +16,7 @@ jobs:
     outputs:
       test-targets: ${{ steps.get-targets.outputs.targets }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: coursier/cache-action@v6
       - uses: coursier/setup-action@v1
         with:
@@ -36,7 +36,7 @@ jobs:
         target: ${{ fromJson(needs.discover.outputs.test-targets) }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: coursier/cache-action@v6
       - uses: coursier/setup-action@v1
         with:
@@ -59,7 +59,7 @@ jobs:
     if: github.event_name != 'pull_request' && (startsWith(github.ref, 'refs/tags/v'))
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: coursier/cache-action@v6
       - uses: coursier/setup-action@v1
         with:
