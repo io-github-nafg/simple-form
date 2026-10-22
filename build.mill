@@ -52,7 +52,7 @@ trait SimpleFormModule extends Cross.Module[String]:
 
   trait SimpleFormTestModule extends TestModule, CommonModule:
     override def testFramework = "zio.test.sbt.ZTestFramework"
-    override def mvnDeps       = Seq(mvn"dev.zio::zio-test-sbt::2.1.20")
+    override def mvnDeps       = Seq(mvn"dev.zio::zio-test-sbt::2.1.27")
 
   trait SharedJS extends Shared, ScalaJSModule:
     override def scalaJSVersion = "1.19.0"
