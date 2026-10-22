@@ -55,7 +55,7 @@ trait SimpleFormModule extends Cross.Module[String]:
     override def mvnDeps       = Seq(mvn"dev.zio::zio-test-sbt::2.1.20")
 
   trait SharedJS extends Shared, ScalaJSModule:
-    override def scalaJSVersion = "1.19.0"
+    override def scalaJSVersion = "1.22.0"
 
   object jvm extends Shared:
     object test extends ScalaTests, SimpleFormTestModule
